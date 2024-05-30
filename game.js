@@ -1,5 +1,3 @@
-let ties = humanScore = computerScore = 0;
-
 function getComputerChoice() {
     let weapon = ["rock", "paper", "scissors"];
     return weapon[Math.floor(Math.random() * weapon.length)];
@@ -30,15 +28,26 @@ function playRound(humanChoice, computerChoice) {
     resultDiv.textContent = result;
 }
 
-function main() {
-    let buttons = document.querySelectorAll("button");
-    buttons.forEach((button) => {
-        let className = button.className;
-        button.addEventListener('click', () => {
+let ties = humanScore = computerScore = rounds = 0;
+
+roundsDiv = document.querySelector(".rounds");
+winnerDiv = document.querySelector("#winner");
+let buttons = document.querySelectorAll("button");
+buttons.forEach((button) => {
+    let className = button.className;
+    button.addEventListener('click', () => {
+        if (rounds < 5) {
             playRound(className, getComputerChoice());
-        });
+            rounds++;
+            roundsDiv.textContent = `Round: ${rounds}/5`;
+            if (rounds == 5) {
+                if (humanScore == 5) winnerDiv.textContent = "You won!";
+                else winnerDiv.textContent = "You lost, better luck next time."
+            }
+        } else {
+            rounds = 0;
+            winnerDiv.textContent = "";
+            roundsDiv.textContent = ``;
+        }
     });
-}
-
-main();
-
+});
