@@ -16,25 +16,29 @@ function playRound(humanChoice, computerChoice) {
         || (humanChoice == "paper" && computerChoice == "rock")
         || (humanChoice == "scissors" && computerChoice == "paper")) {
         humanWon++;
-        result=`You win, ${humanChoice} beats ${computerChoice}`;
+        result = `You win, ${humanChoice} beats ${computerChoice}`;
     } else if ((computerChoice == "rock" && humanChoice == "scissors")
         || (computerChoice == "paper" && humanChoice == "rock")
         || (computerChoice == "scissors" && humanChoice == "paper")) {
         computerWon++;
-        result=`You loose, ${computerChoice} beats ${humanChoice}`;
+        result = `You loose, ${computerChoice} beats ${humanChoice}`;
     } else if (humanChoice == computerChoice) {
         ties++;
-        result=`It's a tie, ${humanChoice}=${computerChoice}`;
+        result = `It's a tie, ${humanChoice} = ${computerChoice}`;
     }
-    alert(result);
+    resultDiv = document.querySelector("#result");
+    resultDiv.textContent = result;
 }
 
-function playGame() {
-    for (let i = 0; i < 5; i++) {
-        humanChoice = getHumanChoice();
-        computerChoice = getComputerChoice();
-        playRound(humanChoice, computerChoice);
-    }
+function main() {
+    let buttons = document.querySelectorAll("button");
+    buttons.forEach((button) => {
+        let className = button.className;
+        button.addEventListener('click', () => {
+            playRound(className, getComputerChoice());
+        });
+    });
 }
 
-playGame();
+main();
+
