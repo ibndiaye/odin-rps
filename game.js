@@ -9,16 +9,16 @@ function getHumanChoice() {
 }
 
 function playRound(humanChoice, computerChoice) {
-    let computerWon, humanWon, result;
+    let result;
     if ((humanChoice == "rock" && computerChoice == "scissors")
         || (humanChoice == "paper" && computerChoice == "rock")
         || (humanChoice == "scissors" && computerChoice == "paper")) {
-        humanWon++;
+        humanScore++;
         result = `You win, ${humanChoice} beats ${computerChoice}`;
     } else if ((computerChoice == "rock" && humanChoice == "scissors")
         || (computerChoice == "paper" && humanChoice == "rock")
         || (computerChoice == "scissors" && humanChoice == "paper")) {
-        computerWon++;
+        computerScore++;
         result = `You loose, ${computerChoice} beats ${humanChoice}`;
     } else if (humanChoice == computerChoice) {
         ties++;
@@ -32,6 +32,8 @@ let ties = humanScore = computerScore = rounds = 0;
 
 roundsDiv = document.querySelector(".rounds");
 winnerDiv = document.querySelector("#winner");
+let humanScoreLabel = document.querySelector(".humanScore")
+let computerScoreLabel = document.querySelector(".computerScore")
 let buttons = document.querySelectorAll("button");
 buttons.forEach((button) => {
     let className = button.className;
@@ -40,14 +42,18 @@ buttons.forEach((button) => {
             playRound(className, getComputerChoice());
             rounds++;
             roundsDiv.textContent = `Round: ${rounds}/5`;
+            humanScoreLabel.textContent = `Human: ${humanScore}/5`
+            computerScoreLabel.textContent = `Computer: ${computerScore}/5`
             if (rounds == 5) {
-                if (humanScore == 5) winnerDiv.textContent = "You won!";
-                else winnerDiv.textContent = "You lost, better luck next time."
+                if (humanScore > computerScore) winnerDiv.textContent = "You won!";
+                else if (computerScore > humanScore) winnerDiv.textContent = "You lost, better luck next time.";
+                else winnerDiv.textContent = "It's a tie, there's no winner.";
             }
         } else {
-            rounds = 0;
+            // rounds = 0;
             winnerDiv.textContent = "";
             roundsDiv.textContent = ``;
+            humanScore = computerScore = rounds = 0;
         }
     });
 });

@@ -12,8 +12,6 @@
     flex-direction: column;
     justify-content: center;
     gap: 3rem;
-    width: 100vw;
-    height: 100vh;
 }
 
 button{
@@ -25,4 +23,10 @@ button{
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
+}
+
+.scoring{
+    display: flex;
+    justify-content: space-between;
+    margin: 30px;
 }
